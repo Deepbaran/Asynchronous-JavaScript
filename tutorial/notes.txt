@@ -1,0 +1,70 @@
+**********
+Synchronous JavaScript:
+**********
+- JavaScript can run ONE statement at a time from top to bottom. (i.e., JS is a single threaded Programming Language)
+- Line 1 cannot be executed adter line 2 and line 2 cannot be executed before line 1
+
+**********
+Asynchronous JavaScript:
+**********
+- Governs how we perform tasks which take some time to complete (e.g. Getting data from a database)
+- Start something now and finist later
+- The code/statement/function that takes time to run/is waiting for some kind of request(https/database), JS takes it to a different section and proceeds to execute the next statemnets, all the while that statement is waiting in a different section. Once that statement finally receives the response it gets executed as a callback function. (refer to 'async1.png' for a visual understanding).
+- Asynchronous code gives the concept of non-blocking code. Meaning, one code will not block other codes from being executed.
+
+**********
+HTTP Requests:
+**********
+- Make HTTP reuest to get data from another server
+- We make these requests to API endpoints (APIs are like urls that a particular server gives to us) [Refer to 'api_endpoints.png' for visual understanding]
+
+**********
+Callback Hell:
+**********
+- Nesting callback within callback within callback... is called CALLBACK HELL.
+- Using Promises is a good solution to prevent Callback Hell.
+
+**********
+Promises:
+**********
+- Promises are asynchronous.
+- Promise returns a new Promise. (This is the first thing we do)
+- Promise will take some time to do. So, a Promise will ultimately lead to one of two outcomes:
+i. Promise will be resolved: We will get what we wanted.
+ii. promise will ibe rejected: We will get an error.
+- resolve and reject are the two functions that are built into the promise API.
+- A promise is ultimately saying that it will do some work some time in the future and it will either return a resolve or reject.
+- The function passed to then() is fired when the promise is resolved or if there is another then() before it, then after that then() is fired successfully, then this then() will be fired.
+- then() takes two callback functions. First one is executed when the Promise is resolved and the data passed to the resolve function of Promise is passed to this callback function. And the second one is executed when the Promise is rjected and the data passed to the reject function of Promise is passed to this callback function.
+- Rather than using two callback functions in then() we can pass the first callback function for Promise resolve and instead of the second callback function in then() we can use another method catch() for promise reject.
+
+**********
+FETCH API:
+**********
+- It is an built in API that is used to get data
+- fetch is asynchronous
+- fetch returns a promise
+- catch() works a little differently in fetch. In case of fetch, we get error in catch only if it is some kind of network error. Only in case of a network error, we get a rejection. In other errors, we get resolved.
+- There will be no rejection even if the url of the API is wrong. But we will still get a status 404 despite getting a resolve from promise.
+- fetch api creates the promise as response object for us and returns it to us.
+- Steps:
+1. fetch the data from API endpoint
+2. then we use a then() to take the response and return response.json() that returns a promise
+3. then we use anotehr then() and inside it we get our actual data
+4. we use a catch() at the end to catch any error.
+
+**********
+Async & Await:
+**********
+- they allow us to chain promises together in a clean and much more readable way. Chain promises makes the code messy
+- This improves fetch.
+- Using these we can section off all of our asynchronous code in a single asynchronous function and then use the await keyword inside to chain promises together in a much more readable way and logical.
+- Asynchronousfunction function always returns a promise. Regardless of what is inside.
+- await keyword will stop JS till we get a response from the API.
+- Even if await is stopping JS, it does not mean that it is blocking. As, await is taking place inside a asynchronous function which is non-blocking. So, when await is stopping JS, it is stopping JS in a different section and waiting while the response comes i.e, the promise is resolved completely, meanwhile codes in next lines are getting executed in the single thread.
+
+**********
+Evolution of data fetching from server:
+**********
+- processName (issue) -> better processName:
+-- XMLHTTPRequest (Callback Hell) -> fetch (chain promises) -> Async & Await
